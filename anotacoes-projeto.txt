@@ -1,0 +1,46 @@
+🚀 Projeto: Sistema Resiliente de Observação de Câmbio (SROC)
+Este projeto estabelece uma plataforma de microserviços de alta disponibilidade para consulta de câmbio e criptoativos. Ele integra um frontend interativo, um backend de processamento e uma camada de persistência, tudo orquestrado sob os princípios de SRE (Site Reliability Engineering).
+
+🏗️ A Arquitetura do Sistema
+O sistema divide-se em quatro camadas principais para garantir isolamento e escalabilidade:
+
+Interface do Usuário (Frontend): Uma aplicação SPA (Single Page Application) em React que permite ao usuário pesquisar moedas específicas e visualizar o status de saúde dos serviços em tempo real.
+
+API de Processamento (Backend): Um serviço em FastAPI (Python) ou Go que consome dados de APIs externas, gerencia o cache e expõe métricas no formato Prometheus.
+
+Camada de Dados: Um banco PostgreSQL que garante a persistência do histórico e um Redis que acelera as consultas frequentes.
+
+Malha de Infraestrutura: Um cluster Kubernetes que sustenta toda a operação, utilizando um Ingress Controller para rotear o tráfego.
+
+🛠️ O que este projeto demonstra (Competências SRE/DevOps)
+O projeto implementa as seguintes práticas avançadas:
+
+Infraestrutura como Código (IaC): O provisionamento do ambiente ocorre via Terraform, eliminando configurações manuais.
+
+Pipeline de CI/CD: O GitHub Actions automatiza o ciclo de vida, desde a execução de testes unitários até o push de imagens otimizadas para o Docker Hub.
+
+Estratégia de Deployment: O sistema suporta atualizações do tipo Rolling Update, garantindo que o usuário final nunca perceba indisponibilidade durante o deploy.
+
+Observabilidade 360°: O ecossistema utiliza Prometheus e Grafana para monitorar o "Golden Signal" de Latência, Tráfego, Erros e Saturação.
+
+Auto-Healing e Escalabilidade: O Kubernetes monitora a integridade dos pods e ajusta a quantidade de réplicas automaticamente via HPA (Horizontal Pod Autoscaler) conforme a carga de usuários aumenta.
+
+📂 Organização do Repositório
+O repositório organiza-se da seguinte forma:
+
+Plaintext
+├── .github/workflows/   # Automação de builds e deploys
+├── frontend/            # Interface React (Nginx como Web Server)
+├── backend/             # API REST e lógica de negócio
+├── terraform/           # Definição da infraestrutura na nuvem
+├── k8s/                 # Manifestos (Deployments, Services, HPA, Ingress)
+├── monitoring/          # Dashboards do Grafana e alertas do Prometheus
+└── README.md            # Documentação técnica e guia de reprodução
+📈 Critérios de Sucesso (SLOs)
+O sistema busca atingir os seguintes objetivos de nível de serviço:
+
+Disponibilidade: 99.9% de uptime para a interface do usuário.
+
+Latência: 95% das pesquisas de moeda devem retornar em menos de 300ms.
+
+Resiliência: O tempo de recuperação automática (MTTR) em caso de queda de um pod deve ser inferior a 15 segundos.
